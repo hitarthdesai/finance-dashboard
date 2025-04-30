@@ -7,9 +7,9 @@ type HighLowAreaChartProps = {
   
 export default function HighLowAreaChart({data}: HighLowAreaChartProps) {
   return (
-    <div className="w-full h-96">
+    <div className="w-full h-[400px] border rounded-lg shadow-md">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+        <AreaChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis domain={['auto', 'auto']} />

@@ -14,7 +14,7 @@ type ChartViewProps = {
 }
 
 export function ChartView({ data }: ChartViewProps) {
-    return <div className="bg-red-500 w-screen h-screen flex flex-col gap-4">
+    return <div className="grid grid-cols-2 gap-4">
         <LineChartComponent data={data}  />
         <VolumeBarChart data={data} />
         <HighLowAreaChart data={data} />

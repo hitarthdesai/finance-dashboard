@@ -1,7 +1,7 @@
 "use client";
 
 import { type TickerData } from "@/utils/getTickerData";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, getFilteredRowModel, getSortedRowModel } from "@tanstack/react-table";
 import {
     Table,
     TableBody,
@@ -11,6 +11,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
+import { NumericRangeFilter } from "./NumericRangeFilter";
+import React from "react";
 
 const columns: ColumnDef<TickerData>[] = [
   {
@@ -20,28 +22,60 @@ const columns: ColumnDef<TickerData>[] = [
       const date = getValue<Date>();
       return date.toLocaleDateString();
     },
+    sortingFn: "datetime",
   },
   {
     accessorKey: "open",
     header: "Open",
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: NumericRangeFilter,
+    },
   },
   {
     accessorKey: "high",
     header: "High",
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: NumericRangeFilter,
+    },
   },
   {
     accessorKey: "low",
     header: "Low",
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: NumericRangeFilter,
+    },
   },
   {
     accessorKey: "close",
     header: "Close",
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: NumericRangeFilter,
+    },
   },
   {
     accessorKey: "volume",
     header: "Volume",
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: NumericRangeFilter,
+    },
   },
 ];
+
   
   type DataTableProps = {
     data: TickerData[];
@@ -52,7 +86,19 @@ const columns: ColumnDef<TickerData>[] = [
       data,
       columns,
       getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      filterFns: {
+        betweenNumberRange: (row, columnId, filterValue) => {
+          const value = row.getValue<number>(columnId);
+          const [min, max] = filterValue ?? [];
+          if (min !== undefined && value < min) return false;
+          if (max !== undefined && value > max) return false;
+          return true;
+        },
+      },
     });
+    
   
     return (
       <div className="rounded-md border">
@@ -62,9 +108,12 @@ const columns: ColumnDef<TickerData>[] = [
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.column.getCanFilter() &&
+                      header.column.columnDef.filterFn &&
+                      <NumericRangeFilter
+                        column={header.column}
+                      />}
                   </TableHead>
                 ))}
               </TableRow>

@@ -12,16 +12,16 @@ export  default async function Home() {
   const data = await getTickerData("IBM")
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between p-24">
-      <Tabs defaultValue={EnumViewMode.Chart} className="w-full bg-blue-300">
+    <main className="flex min-h-screen h-full w-full flex-col items-center justify-between p-4">
+      <Tabs defaultValue={EnumViewMode.Chart} className="w-full">
         <TabsList>
           <TabsTrigger value={EnumViewMode.Chart}>Chart</TabsTrigger>
           <TabsTrigger value={EnumViewMode.Table}>Table</TabsTrigger>
         </TabsList>
-        <TabsContent className="w-full bg-green-600" value={EnumViewMode.Chart}>
+        <TabsContent className="w-full" value={EnumViewMode.Chart}>
           <ChartView data={data} />
         </TabsContent>
-        <TabsContent value={EnumViewMode.Table}>
+        <TabsContent className="w-full" value={EnumViewMode.Table}>
           <DataTable data={data} />
         </TabsContent>
       </Tabs>

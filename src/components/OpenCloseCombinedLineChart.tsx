@@ -7,9 +7,9 @@ type OpenCloseCombinedLineChartProps = {
 
 export default function OpenCloseCombinedLineChart({data}: OpenCloseCombinedLineChartProps) {
     return (
-      <div className="w-full h-96">
+      <div className="w-full h-[400px] border rounded-lg shadow-md">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+          <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
             <YAxis domain={['auto', 'auto']} />
