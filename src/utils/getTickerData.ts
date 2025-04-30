@@ -1,35 +1,7 @@
 import { z } from "zod";
 
-const API_KEY = "QDXSEI79AX8F6E3UQ";
-
-
-/**
- * {
-    "Meta Data": {
-        "1. Information": "Daily Prices (open, high, low, close) and Volumes",
-        "2. Symbol": "IBM",
-        "3. Last Refreshed": "2025-04-29",
-        "4. Output Size": "Compact",
-        "5. Time Zone": "US/Eastern"
-    },
-    "Time Series (Daily)": {
-        "2025-04-29": {
-            "1. open": "237.0000",
-            "2. high": "239.9800",
-            "3. low": "236.1400",
-            "4. close": "239.3900",
-            "5. volume": "3426508"
-        },
-    }
- */
+const API_KEY = "338YYCHMSEJE11XR";
 const ticketDataSchema = z.object({
-    // "Meta Data": z.object({
-    //     "1. Information": z.string(),
-    //     "2. Symbol": z.string(),
-    //     "3. Last Refreshed": z.string(),
-    //     "4. Output Size": z.string(),
-    //     "5. Time Zone": z.string(),
-    // }),
     "Time Series (Daily)": z.record(
         z.object({
         "1. open": z.string(),

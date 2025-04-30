@@ -1,12 +1,8 @@
 import { ChartView } from "@/components/ChartView";
 import { DataTable } from "@/components/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EnumViewMode } from "@/constants/enums";
 import { getTickerData } from "@/utils/getTickerData"
-
-const EnumViewMode = {
-  Chart: "chart",
-  Table: "table",
-} as const
 
 export  default async function Home() {
   const data = await getTickerData("IBM")
