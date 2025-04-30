@@ -107,14 +107,14 @@ const columns: ColumnDef<TickerData>[] = [
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <TableHead key={header.id}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {header.column.getCanFilter() &&
-                      header.column.columnDef.filterFn &&
-                      <NumericRangeFilter
-                        column={header.column}
-                      />}
-                  </TableHead>
+                    <TableHead key={header.id}>
+                      <div className="flex justify-center items-center">{flexRender(header.column.columnDef.header, header.getContext())}</div>
+                      {header.column.id !== "date" && (
+                        <NumericRangeFilter
+                          column={header.column}
+                        />
+                      )}
+                    </TableHead>
                 ))}
               </TableRow>
             ))}

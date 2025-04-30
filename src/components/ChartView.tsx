@@ -14,10 +14,18 @@ type ChartViewProps = {
 }
 
 export function ChartView({ data }: ChartViewProps) {
-    return <div className="grid grid-cols-2 gap-4">
-        <LineChartComponent data={data}  />
-        <VolumeBarChart data={data} />
-        <HighLowAreaChart data={data} />
-        <OpenCloseCombinedLineChart data={data} />
+    return <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+        <div>
+            <LineChartComponent data={data}  />
+        </div>
+        <div>
+            <VolumeBarChart data={data} />
+        </div>
+        <div>
+            <HighLowAreaChart data={data} />
+        </div>
+        <div>
+            <OpenCloseCombinedLineChart data={data} />
+        </div>
     </div>
 }

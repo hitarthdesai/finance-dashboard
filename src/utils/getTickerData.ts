@@ -51,19 +51,23 @@ export type TickerData = {
 }
 
 export async function getTickerData(ticker: string): Promise<TickerData[]> {
-    
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${API_KEY}`
-  const _data = await fetch(url).then((res) => res.json());
-  const data = ticketDataSchema.parse(_data);
-
-  const tickerData = data["Time Series (Daily)"];
-
-  return Object.entries(tickerData).map(([date, values]) => ({
-    date: new Date(date),
-    open: parseFloat(values["1. open"]),
-    high: parseFloat(values["2. high"]),
-    low: parseFloat(values["3. low"]),
-    close: parseFloat(values["4. close"]),
-    volume: parseInt(values["5. volume"]),
-  }));
+    try {
+        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${API_KEY}`
+        const _data = await fetch(url).then((res) => res.json());
+        const data = ticketDataSchema.parse(_data);
+        
+        const tickerData = data["Time Series (Daily)"];
+        
+        return Object.entries(tickerData).map(([date, values]) => ({
+            date: new Date(date),
+            open: parseFloat(values["1. open"]),
+            high: parseFloat(values["2. high"]),
+            low: parseFloat(values["3. low"]),
+            close: parseFloat(values["4. close"]),
+            volume: parseInt(values["5. volume"]),
+        }));
+    } catch (error) {
+        console.error("Error fetching ticker data:", error);
+        return [];
+    }
 }
